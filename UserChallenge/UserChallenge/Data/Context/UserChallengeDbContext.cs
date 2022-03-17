@@ -14,6 +14,6 @@ namespace UserChallenge.Data.Context
 
         }
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<User> Usuarios { get; set; }
     }
 }
