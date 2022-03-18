@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UserChallenge.Data.Context;
+using UserChallenge.Data.DAL.Interfaces;
 using UserChallenge.Models;
 
 namespace UserChallenge.Controllers
@@ -11,9 +12,11 @@ namespace UserChallenge.Controllers
     public class UserController : Controller
     {
         private readonly UserChallengeDbContext _context;
-        public UserController(UserChallengeDbContext context)
+        private readonly IUser _userRepository;
+        public UserController(UserChallengeDbContext context, IUser userRepository)
         {
             this._context = context;
+            this._userRepository = userRepository;
         }
 
         public IActionResult Index()
@@ -32,10 +35,17 @@ namespace UserChallenge.Controllers
         {
             if (ModelState.IsValid)
             {
-                 _context.Usuarios.AddAsync(user);
-                 _context.SaveChangesAsync();
-                TempData["Mensaje"] = "Se creó el usuario correctamente.";
-                return RedirectToAction("Index");
+                try
+                {
+                    _userRepository.Create(user);
+                    TempData["Mensaje"] = "Se creó el usuario correctamente.";
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex)
+                {
+                    TempData["Mensaje"] = "Ocurrió un error al intentar crear el usuario. Intente de nuevo.";
+                    return RedirectToAction("Index");
+                }
             }
             return View();
         }
@@ -45,10 +55,18 @@ namespace UserChallenge.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Usuarios.Remove(_context.Usuarios.Where(x=> x.IdUsuario == id).First());
-                _context.SaveChangesAsync();
-                TempData["Mensaje"] = "Se eliminó el usuario correctamente.";
-                return RedirectToAction("Index");
+                try
+                {
+                    _userRepository.Delete(id);
+                    TempData["Mensaje"] = "Se eliminó el usuario correctamente.";
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex)
+                {
+                    TempData["Mensaje"] = "Ocurrió un error al intentar borrar el usuario. Intente de nuevo.";
+                    return RedirectToAction("Index");
+                }
+
             }
             return View();
         }
@@ -61,8 +79,15 @@ namespace UserChallenge.Controllers
                 return NotFound();
             }
 
-            var editUser = _context.Usuarios.Where(x => x.IdUsuario == id).First();
-            return View(editUser);
+            try
+            {
+                var editUser = _userRepository.GetUserById(id);
+                return View(editUser);
+            }
+            catch (Exception)
+            {
+                return View();
+            }
         }
 
         [HttpPost]
@@ -70,10 +95,17 @@ namespace UserChallenge.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Usuarios.Update(user);
-                _context.SaveChanges();
-                TempData["Mensaje"] = "Se editó el usuario correctamente.";
-                return RedirectToAction("Index");
+                try
+                {
+                    _userRepository.Edit(user);
+                    TempData["Mensaje"] = "Se editó el usuario correctamente.";
+                    return RedirectToAction("Index");
+                }
+                catch (Exception)
+                {
+                    TempData["Mensaje"] = "Ocurrió un error intentando editar el usuario. Intente nuevamente.";
+                    return RedirectToAction("Index");
+                }
             }
 
             return View();
