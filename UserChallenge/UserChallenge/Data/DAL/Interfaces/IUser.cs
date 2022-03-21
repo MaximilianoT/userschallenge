@@ -8,10 +8,12 @@ namespace UserChallenge.Data.DAL.Interfaces
 {
     public interface IUser 
     {
+        public IEnumerable<User> GetUsers();
         public Task Create(User user);
         public Task Edit(User user);
-        public Task Delete(int id);
+        public Task Delete(int? id);
 
         public User GetUserById(int? id);
+
     }
 }

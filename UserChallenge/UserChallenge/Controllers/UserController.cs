@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using UserChallenge.Data.Context;
 using UserChallenge.Data.DAL.Interfaces;
 using UserChallenge.Models;
 
@@ -11,24 +10,36 @@ namespace UserChallenge.Controllers
 {
     public class UserController : Controller
     {
-        private readonly UserChallengeDbContext _context;
         private readonly IUser _userRepository;
-        public UserController(UserChallengeDbContext context, IUser userRepository)
+        public UserController(IUser userRepository)
         {
-            this._context = context;
             this._userRepository = userRepository;
         }
 
-        public IActionResult Index()
+
+        public IActionResult Index(bool? redirected)
         {
-            IEnumerable<User> usuarios = _context.Usuarios.ToList();
-            return View(usuarios);
+            //IEnumerable<User> usuarios = _userRepository.GetUsers();
+            //return View(usuarios);
+            if (redirected.HasValue && redirected is true)
+            {
+
+                IEnumerable<User> usuarios = _userRepository.GetUsers();
+                return View(usuarios);
+
+            }
+            else
+            {
+                return RedirectToAction("Index", "Login");
+            }
         }
+
 
         public IActionResult Create()
         {
             return View();
         }
+
 
         [HttpPost]
         public IActionResult Create(User user)
@@ -43,7 +54,7 @@ namespace UserChallenge.Controllers
                 }
                 catch (Exception ex)
                 {
-                    TempData["Mensaje"] = "Ocurrió un error al intentar crear el usuario. Intente de nuevo.";
+                    TempData["Mensaje"] = $"Ocurrió un error al intentar crear el usuario. Intente de nuevo. Mensaje: {ex.InnerException}";
                     return RedirectToAction("Index");
                 }
             }
@@ -51,8 +62,13 @@ namespace UserChallenge.Controllers
         }
 
         [HttpGet]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(int? id)
         {
+            if (id is null)
+            {
+                return NotFound();
+            }
+
             if (ModelState.IsValid)
             {
                 try
@@ -63,11 +79,12 @@ namespace UserChallenge.Controllers
                 }
                 catch (Exception ex)
                 {
-                    TempData["Mensaje"] = "Ocurrió un error al intentar borrar el usuario. Intente de nuevo.";
+                    TempData["Mensaje"] = $"Ocurrió un error al intentar borrar el usuario. Intente de nuevo. Mensaje: {ex.InnerException}";
                     return RedirectToAction("Index");
                 }
 
             }
+
             return View();
         }
 

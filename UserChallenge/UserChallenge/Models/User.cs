@@ -34,6 +34,11 @@ namespace UserChallenge.Models
         [Required(ErrorMessage = "El Telefono es un campo obligatorio.")]
         [Display(Name = "Telefono")]
         public string Telefono { get; set; }
+
+        [Required(ErrorMessage = "La contraseña es un campo obligatorio.")]
+        [StringLength(50, ErrorMessage = "Contraseña inválida. Debe ser mayor a 0 y menor a 50 caracteres.")]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
         
     }
 }

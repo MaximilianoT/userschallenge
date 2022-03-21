@@ -5,7 +5,6 @@ E:\repo\UsersChallenge\UserChallenge\UserChallenge\bin\Debug\net5.0\UserChalleng
 E:\repo\UsersChallenge\UserChallenge\UserChallenge\bin\Debug\net5.0\UserChallenge.runtimeconfig.json
 E:\repo\UsersChallenge\UserChallenge\UserChallenge\bin\Debug\net5.0\UserChallenge.runtimeconfig.dev.json
 E:\repo\UsersChallenge\UserChallenge\UserChallenge\bin\Debug\net5.0\UserChallenge.dll
-E:\repo\UsersChallenge\UserChallenge\UserChallenge\bin\Debug\net5.0\ref\UserChallenge.dll
 E:\repo\UsersChallenge\UserChallenge\UserChallenge\bin\Debug\net5.0\UserChallenge.pdb
 E:\repo\UsersChallenge\UserChallenge\UserChallenge\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Antiforgery.dll
 E:\repo\UsersChallenge\UserChallenge\UserChallenge\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Authentication.Abstractions.dll
@@ -430,3 +429,5 @@ E:\repo\UsersChallenge\UserChallenge\UserChallenge\obj\Debug\net5.0\UserChalleng
 E:\repo\UsersChallenge\UserChallenge\UserChallenge\obj\Debug\net5.0\UserChallenge.genruntimeconfig.cache
 E:\repo\UsersChallenge\UserChallenge\UserChallenge\obj\Debug\net5.0\UserChallenge.csproj.AssemblyReference.cache
 E:\repo\UsersChallenge\UserChallenge\UserChallenge\obj\Debug\net5.0\Razor\Views\User\Edit.cshtml.g.cs
+E:\repo\UsersChallenge\UserChallenge\UserChallenge\obj\Debug\net5.0\refint\UserChallenge.dll
+E:\repo\UsersChallenge\UserChallenge\UserChallenge\obj\Debug\net5.0\Razor\Views\Login\Index.cshtml.g.cs

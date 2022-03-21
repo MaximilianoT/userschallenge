@@ -30,6 +30,7 @@ namespace UserChallenge
             services.AddDbContext<UserChallengeDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllersWithViews();
             services.AddScoped<IUser, UserRepository>();
+            services.AddScoped<ILogin, LoginRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

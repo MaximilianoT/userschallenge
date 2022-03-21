@@ -15,6 +15,10 @@ namespace UserChallenge.Data.DAL.Repository
         {
             this._context = context;
         }
+        public IEnumerable<User> GetUsers()
+        {
+            return _context.Usuarios.ToList();
+        }
         public async Task Create(User user)
         {
             await _context.Usuarios.AddAsync(user);
@@ -30,7 +34,7 @@ namespace UserChallenge.Data.DAL.Repository
         }
 
 
-        public async Task Delete(int id)
+        public async Task Delete(int? id)
         {
             var userToDelete = _context.Usuarios.Where(x => x.IdUsuario == id).First();
             _context.Usuarios.Remove(userToDelete);
@@ -40,7 +44,7 @@ namespace UserChallenge.Data.DAL.Repository
 
         public User GetUserById(int? id)
         {
-            return  _context.Usuarios.Where(x => x.IdUsuario == id).First();
+            return _context.Usuarios.Where(x => x.IdUsuario == id).First();
         }
 
         public Task Dispose()
@@ -48,6 +52,6 @@ namespace UserChallenge.Data.DAL.Repository
             throw new NotImplementedException();
         }
 
-       
+     
     }
 }
