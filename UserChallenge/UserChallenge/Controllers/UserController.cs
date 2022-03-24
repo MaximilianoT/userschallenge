@@ -41,7 +41,7 @@ namespace UserChallenge.Controllers
                     TempData["Mensaje"] = "Se creó el usuario correctamente.";
                     return RedirectToAction("Index");
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     TempData["Mensaje"] = "Ocurrió un error al intentar crear el usuario. Intente de nuevo.";
                     return RedirectToAction("Index");
@@ -61,7 +61,7 @@ namespace UserChallenge.Controllers
                     TempData["Mensaje"] = "Se eliminó el usuario correctamente.";
                     return RedirectToAction("Index");
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     TempData["Mensaje"] = "Ocurrió un error al intentar borrar el usuario. Intente de nuevo.";
                     return RedirectToAction("Index");
