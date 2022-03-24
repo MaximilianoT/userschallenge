@@ -23,16 +23,14 @@ namespace UserChallenge.Controllers
             //return View(usuarios);
             if (redirected.HasValue && redirected is true)
             {
-
                 IEnumerable<User> usuarios = _userRepository.GetUsers();
                 return View(usuarios);
+            }
 
-            }
-            else
-            {
-                return RedirectToAction("Index", "Login");
-            }
+            return RedirectToAction("Index", "Login");
+
         }
+
 
 
         public IActionResult Create()
